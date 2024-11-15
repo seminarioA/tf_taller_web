@@ -1,5 +1,8 @@
 .titulo{
     background-color: white;
-    max-width: 300px;
-    border-radius: 15px;
+    max-width: 20%;
+    
+}
+*{
+    font-family: "Poppins", sans-serif;
 }
