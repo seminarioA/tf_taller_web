@@ -26,17 +26,60 @@
     <title>Iniciar Sesión - Hotel Amadeus</title>
   </head>
   <body class="text-bg-light">
-    <header class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-      <div class="container">
-        <a class="navbar-brand" href="index.html">
-          <img
-            src="/assets/logoHeader.png"
-            alt="Logo Hotel Amadeus"
-            style="max-height: 50px;"
-          />
+       <header class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+  <div class="container">
+    <!-- Logo -->
+    <a class="navbar-brand" href="#">
+      <img
+        src="/assets/logoHeader.png"
+        class="img-fluid"
+        alt="Logo Hotel Amadeus"
+        style="max-height: 50px;"
+      />
+    </a>
+
+    <!-- Botón de hamburguesa -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarsExample03"
+      aria-controls="navbarsExample03"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Contenido del menú -->
+    <div class="collapse navbar-collapse" id="navbarsExample03">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#"
+            ><i class="fa-solid fa-hotel"></i> Inicio</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"
+            ><i class="fa-solid fa-calendar"></i> Reserva</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"
+            ><i class="fa-solid fa-location-dot"></i> Visita Chota</a
+          >
+        </li>
+      </ul>
+
+      <!-- Botón Ingresar -->
+      
+        <a href="/login.html" class="btn btn-outline-success" type="button">
+          <i class="fa-solid fa-right-to-bracket"></i> Ingresar
         </a>
-      </div>
-    </header>
+      
+    </div>
+  </div>
+</header>
     <main class="container d-flex justify-content-center align-items-center vh-70">
       <div class="card shadow-lg p-4" style="width: 100%; max-width: 400px;">
         <h1 class="text-center mb-4">Iniciar Sesión</h1>
