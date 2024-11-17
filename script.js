@@ -26,9 +26,8 @@ document.addEventListener("DOMContentLoaded", function () {
     if (menuCerrarSesion) {
       menuCerrarSesion.addEventListener("click", function () {
         localStorage.clear(); // Limpiar la sesión
-        alert("Has cerrado sesión.");
+        //alert("Has cerrado sesión.");
         window.location.href = "login.html"; // Redirigir al login
       });
     }
   });
-  
