@@ -26,54 +26,61 @@
     />
   </head>
   <body class="text-bg-light">
-    <header class="navbar navbar-expand-sm navbar-light bg-light">
-      <nav class="container-flex">
-        <a class="navbar-brand" href="#">
-          <img
-            src="/assets/logoHeader.png"
-            class="navbar-brand titulo"
-            alt="Logo Hotel Amadeus"
-          />
-        </a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarsExample03"
-          aria-controls="navbarsExample03"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
+      <header class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+  <div class="container">
+    <!-- Logo -->
+    <a class="navbar-brand" href="#">
+      <img
+        src="/assets/logoHeader.png"
+        class="img-fluid"
+        alt="Logo Hotel Amadeus"
+        style="max-height: 50px;"
+      />
+    </a>
 
-        <div class="collapse navbar-collapse" id="navbarsExample03">
-          <ul class="navbar-nav me-auto mb-2 mb-sm-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#"
-                ><i class="fa-solid fa-hotel"></i> Inicio</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#"
-                ><i class="fa-solid fa-calendar"></i> Reserva</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#"
-                ><i class="fa-solid fa-location-dot"></i> Visita Chota</a
-              >
-            </li>
-            
-          </ul>
-        </div>
-      <form class="d-flex ms-auto" class="boton">
-            <button class="btn btn-outline-success me-2" type="button">
-              <i class="fa-solid fa-right-to-bracket"></i> Ingresar
-            </button>
-          </form>
-        </nav>
-    </header>
+    <!-- Botón de hamburguesa -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarsExample03"
+      aria-controls="navbarsExample03"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Contenido del menú -->
+    <div class="collapse navbar-collapse" id="navbarsExample03">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#"
+            ><i class="fa-solid fa-hotel"></i> Inicio</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"
+            ><i class="fa-solid fa-calendar"></i> Reserva</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"
+            ><i class="fa-solid fa-location-dot"></i> Visita Chota</a
+          >
+        </li>
+      </ul>
+
+      <!-- Botón Ingresar -->
+      <form class="d-flex">
+        <button class="btn btn-outline-success" type="button">
+          <i class="fa-solid fa-right-to-bracket"></i> Ingresar
+        </button>
+      </form>
+    </div>
+  </div>
+</header>
+
     <main>
       <div class="container mt-5">
         <h1>Bienvenido al Hotel Amadeus</h1>
