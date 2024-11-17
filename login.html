@@ -10,7 +10,8 @@
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-  <link rel="stylesheet" href="styles.css"></link>
+  <link rel="stylesheet" href="styles.css">
+  </link>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -84,45 +85,47 @@
 
   <script>
     document.querySelector("#loginForm").addEventListener("submit", function (e) {
-    e.preventDefault();
+      e.preventDefault();
 
-    const email = document.querySelector("#email").value;
-    const password = document.querySelector("#password").value;
+      const email = document.querySelector("#email").value;
+      const password = document.querySelector("#password").value;
 
-    // Cifrar la contraseña con SHA-256
-    const hashedPassword = CryptoJS.SHA256(password).toString();
+      // Cifrar la contraseña con SHA-256
+      const hashedPassword = CryptoJS.SHA256(password).toString();
 
-    // Enviar el email y la contraseña cifrada al webhook
-    fetch("https://n8n.ejesxyz.com/webhook-test/bca6116d-0d63-4c2b-9c53-923a8a13edcc", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, hashedPassword }),
-    })
-    .then((response) => {
-        console.log("Full Response:", response); // Imprimir la respuesta completa
-        return response.json(); // Procesar la respuesta como JSON
+      // Enviar el email y la contraseña cifrada al webhook
+      fetch("https://n8n.ejesxyz.com/webhook/bca6116d-0d63-4c2b-9c53-923a8a13edcc", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, hashedPassword }),
       })
-      .then((result) => {
-        if (result.success && response.status === 222) {
-          // Guardar los datos del usuario en localStorage
-          localStorage.setItem("loggedIn", "true");
-          localStorage.setItem("UsuarioID", result.UsuarioID);
-          localStorage.setItem("Email", result.Email);
-          localStorage.setItem("NombreUsuario", result.NombreUsuario);
+        .then((response) => {
+          console.log("Full Response:", response); // Imprime la respuesta completa
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json(); // Procesa la respuesta como JSON
+        })
+        .then((data) => {
+          console.log("Parsed Response:", data); // Imprime el cuerpo de la respuesta parseada
+          if (data.success) {
+            localStorage.setItem("loggedIn", "true");
+            localStorage.setItem("UsuarioID", data.UsuarioID);
+            localStorage.setItem("Email", data.Email);
+            localStorage.setItem("NombreUsuario", data.NombreUsuario);
 
-          alert(`¡Bienvenido, ${result.NombreUsuario}!`);
-          window.location.href = "mis-reservas.html"; // Redirigir a la página de reservas
-        } else {
-          alert(result.message || "Correo o contraseña incorrectos");
-        }
-      })
-      .catch((error) => {
-        console.error("Error al iniciar sesión:", error);
-        alert("Ocurrió un error. Intenta más tarde.");
-      });
-  });
+            window.location.href = "mis-reservas.html"; // Redirigir a la página de reservas
+          } else {
+            alert(data.message || "Correo o contraseña incorrectos");
+          }
+        })
+        .catch((error) => {
+          console.error("Error al iniciar sesión:", error); // Imprime el error si ocurre
+          alert("Ocurrió un error al procesar la solicitud. Intenta nuevamente.");
+        });
+    });
   </script>
 </body>
 
