@@ -10,3 +10,7 @@
     top:15px;
     left:250px;
 }
+.registro{
+    position: relative;
+    background: url('assets/heroPrincipal.png') no-repeat center center/cover;
+  }

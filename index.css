@@ -4,7 +4,7 @@
     background: url('assets/heroPrincipal.png') no-repeat center center/cover;
     color: #fff;
   }
-  
+
   .hero-overlay {
     position: absolute;
     top: 0;
@@ -23,8 +23,6 @@
   }
   
   form#exploraForm {
-    bottom: 20px; /* Posición del formulario */
-    width: 90%;
     max-width: 1200px;
     color: black;
   }
@@ -58,5 +56,9 @@
     padding: 1rem;
   }
   
-  
+  @media (max-width:780px) {
+    .hero-content {
+      top: 10%;
+    }
+  }
   
