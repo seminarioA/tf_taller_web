@@ -16,6 +16,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Host+Grotesk:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
     rel="stylesheet" />
+  <link rel="stylesheet" href="index.css">
 </head>
 
 <body class="text-bg-light">
@@ -45,7 +46,7 @@
             <a class="nav-link" href=""><i class="fa-solid fa-location-dot"></i> Visita Chota</a>
           </li>
           <li class="nav-item" id="menu-mis-reservas">
-            <a class="nav-link" href="/mis-reservas.html"><i class="fa-solid fa-bookmark"></i>Mis Reservas</a>
+            <a class="nav-link" href="/mis-reservas.html"><i class="fa-solid fa-bookmark"></i> Mis Reservas</a>
           </li>
         </ul>
 
@@ -54,7 +55,7 @@
         <a href="/login.html" class="btn btn-outline-success" type="button" id="menu-iniciar-sesion">
           <i class="fa-solid fa-right-to-bracket"></i> Ingresar
         </a>
-        <a href="/login.html" class="btn btn-outline-warning" type="button" id="menu-cerrar-sesion">
+        <a href="/login.html" class="btn btn-outline-danger" type="button" id="menu-cerrar-sesion">
           <i class="fa-solid fa-right-to-bracket"></i> Cerrar Sesión
         </a>
 
@@ -63,10 +64,54 @@
   </header>
 
   <main>
-    <div class="container mt-5">
-      <h1>👋 <span id="saludo-usuario"></span> Bienvenido al Hotel Amadeus</h1>
-      <p>Disfruta de una experiencia única en Chota.</p>
-    </div>
+    <section class="hero">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="container mt-5">
+          <h1>👋 <span id="saludo-usuario"></span> <br>Bienvenido al <b>Hotel Amadeus</b></h1>
+        </div>
+        <h2 class="display-3 fw-bold mb-4"><i class="fa-solid fa-map-marker-alt"></i> Explora Chota</h2>
+        <p class="mb-4">Disfruta de una experiencia única en Chota.</p>
+        <!-- Formulario -->
+        <div class="container bg-light p-4 rounded shadow-lg" style="opacity: 0.95;">
+          <h3 class="text-start mb-4 text-primary">Revisa la disponibilidad</h3>
+          <form id="exploraForm">
+            <div class="row align-items-start">
+              <div class="col-md-3 mb-3">
+                <label for="personas" class="form-label d-block text-start ">
+                  <i class="fa-solid fa-users"></i> Personas
+                </label>
+                <input type="number" class="form-control" id="personas" placeholder="N° personas" min="1" required />
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="fechaIngreso" class="form-label d-block text-start">
+                  <i class="fa-solid fa-calendar-check"></i> Ingreso
+                </label>
+                <input type="date" class="form-control" id="fechaIngreso" required />
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="fechaSalida" class="form-label d-block text-start">
+                  <i class="fa-solid fa-calendar-times"></i> Salida
+                </label>
+                <input type="date" class="form-control" id="fechaSalida" required />
+              </div>
+              <div class="col-md-1 text-center" style="align-self: center;">
+                <button type="submit" class="btn btn-primary w-100">
+                  <i class="fa-solid fa-search"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="container mt-5">
+        <h2 class="text-center mb-4">Habitaciones Disponibles</h2>
+        <div id="habitaciones-container" class="row"></div>
+      </div>
+      
+    </section>
   </main>
   <footer class="mt-auto bg-light py-3 text-center">
     <div class="container">
@@ -85,6 +130,7 @@
     integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
     crossorigin="anonymous"></script>
   <script src="script.js"></script>
+  <script src="habitaciones.js"></script>
 </body>
 
 </html>
