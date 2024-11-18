@@ -1,7 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
     const loggedIn = localStorage.getItem("loggedIn");
     const nombreUsuario = localStorage.getItem("NombreUsuario");
-  
+    const Rol =localStorage.getItem("Rol")
+
+    console.log(Rol);
     // Referencias a los elementos del menú
     const menuIniciarSesion = document.getElementById("menu-iniciar-sesion");
     const menuMisReservas = document.getElementById("menu-mis-reservas");
