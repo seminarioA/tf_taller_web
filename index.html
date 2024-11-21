@@ -130,7 +130,59 @@
     integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
     crossorigin="anonymous"></script>
   <script src="/Js/script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="/Js/habitaciones.js"></script>
+  <div class="modal fade" id="reservaModal" tabindex="-1" aria-labelledby="reservaModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="reservaModalLabel">Reserva tu Habitación</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="reservaForm">
+            <div class="mb-3">
+              <label for="modalTipo" class="form-label">Tipo de Habitación</label>
+              <input type="text" class="form-control" id="modalTipo" readonly>
+            </div>
+            <div class="mb-3">
+              <label for="modalCapacidad" class="form-label">Capacidad</label>
+              <input type="text" class="form-control" id="modalCapacidad" readonly>
+            </div>
+            <div class="mb-3">
+              <label for="modalPrecio" class="form-label">Precio por Noche</label>
+              <input type="text" class="form-control" id="modalPrecio" readonly>
+            </div>
+            <div id="datosUsuario" style="display: none;">
+              <div class="mb-3">
+                <label for="modalNombre" class="form-label">Nombre Completo</label>
+                <input type="text" class="form-control" id="modalNombre" placeholder="Ingresa tu nombre">
+              </div>
+              <div class="mb-3">
+                <label for="modalDNI" class="form-label">DNI</label>
+                <input type="text" class="form-control" id="modalDNI" placeholder="Ingresa tu DNI">
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="modalFechaIngreso" class="form-label">Fecha de Ingreso</label>
+              <input type="date" class="form-control" id="modalFechaIngreso" required>
+            </div>
+            <div class="mb-3">
+              <label for="modalFechaSalida" class="form-label">Fecha de Salida</label>
+              <input type="date" class="form-control" id="modalFechaSalida" required>
+            </div>
+            <div class="mb-3">
+              <label for="modalPrecioTotal" class="form-label">Precio Total</label>
+              <input type="text" class="form-control" id="modalPrecioTotal" readonly>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Confirmar Reserva</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
 </body>
 
 </html>
