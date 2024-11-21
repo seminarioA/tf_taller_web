@@ -55,8 +55,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   
     // Lógica de registro (igual que antes)
-    const registroForm = document.getElementById("registroForm");
-    registroForm.addEventListener("submit", function (e) {
+    const reservaForm = document.getElementById("reservaForm");
+    reservaForm.addEventListener("submit", function (e) {
       e.preventDefault();
   
       const nombre = document.getElementById("nombre").value;

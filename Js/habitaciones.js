@@ -129,11 +129,41 @@ function abrirModalReserva(habitacion) {
 
   const loggedIn = localStorage.getItem("loggedIn");
 
-  if (loggedIn === "true") {
+  document.getElementById("btnSiguiente1").addEventListener("click", function () {
+    // Siempre empieza desde la primera pantalla
+    document.getElementById("datosHabitacion").style.display = "none";
+
+    if (loggedIn === "true") {
+        // Si está logueado, salta directo a la tercera pantalla
+        document.getElementById("datosFechas").style.display = "block";
+        document.getElementById("datosUsuario").style.display = "none";
+    } else {
+        // Si no está logueado, muestra la segunda pantalla
+        document.getElementById("datosUsuario").style.display = "block";
+        document.getElementById("datosFechas").style.display = "none";
+    }
+});
+
+document.getElementById("btnRegresar1").addEventListener("click", function () {
+    // Regresar a la primera pantalla
+    document.getElementById("datosHabitacion").style.display = "block";
     document.getElementById("datosUsuario").style.display = "none";
-  } else {
-    document.getElementById("datosUsuario").style.display = "block";
-  }
+});
+
+document.getElementById("btnSiguiente2").addEventListener("click", function () {
+    // Ir a la tercera pantalla desde la segunda
+    document.getElementById("datosUsuario").style.display = "none";
+    document.getElementById("datosFechas").style.display = "block";
+});
+
+document.getElementById("btnRegresar2").addEventListener("click", function () {
+    // Regresar a la segunda pantalla desde la tercera
+    if (loggedIn !== "true") {
+        document.getElementById("datosUsuario").style.display = "block";
+    }
+    document.getElementById("datosHabitacion").style.display = "none";
+});
+
 }
 
 
@@ -245,21 +275,53 @@ function cerrarModal() {
 }
 
 function calcularPrecioTotal() {
-  const fechaIngreso = new Date(document.getElementById("modalFechaIngreso").value);
-  const fechaSalida = new Date(document.getElementById("modalFechaSalida").value);
-  const precioPorNoche = parseFloat(document.getElementById("modalPrecio").value.replace("S/ ", ""));
+  // Obtener los valores de los inputs
+  const fechaIngresoValor = document.getElementById("modalFechaIngreso").value;
+  console.log(fechaIngresoValor);
+  const fechaSalidaValor = document.getElementById("modalFechaSalida").value;
+  const precioPorNocheValor = document.getElementById("modalPrecio").value;
 
-  if (!isNaN(fechaIngreso) && !isNaN(fechaSalida) && !isNaN(precioPorNoche)) {
-    const diferenciaTiempo = fechaSalida - fechaIngreso; // Diferencia en milisegundos
-    const dias = Math.ceil(diferenciaTiempo / (1000 * 60 * 60 * 24)); // Convertir a días
+  // Validar que todos los campos tengan valores
+  if (!fechaIngresoValor || !fechaSalidaValor || !precioPorNocheValor) {
+    document.getElementById("modalPrecioTotal").value = "Completa todos los campos";
+    return;
+  }
 
-    if (dias > 0) {
-      const precioTotal = dias * precioPorNoche;
-      document.getElementById("modalPrecioTotal").value = `S/ ${precioTotal.toFixed(2)}`;
-    } else {
-      document.getElementById("modalPrecioTotal").value = "Selecciona fechas válidas";
-    }
+  // Convertir las fechas a objetos Date
+  const fechaIngreso = new Date(fechaIngresoValor);
+  const fechaSalida = new Date(fechaSalidaValor);
+
+  // Convertir el precio por noche a número
+  const precioPorNoche = parseFloat(precioPorNocheValor.replace("S/ ", "").trim());
+
+  // Validar que las fechas y el precio sean válidos
+  if (isNaN(fechaIngreso.getTime()) || isNaN(fechaSalida.getTime()) || isNaN(precioPorNoche)) {
+    document.getElementById("modalPrecioTotal").value = "Selecciona fechas válidas";
+    return;
+  }
+
+  // Calcular la diferencia en días
+  const diferenciaTiempo = fechaSalida - fechaIngreso; // Diferencia en milisegundos
+  const dias = Math.ceil(diferenciaTiempo / (1000 * 60 * 60 * 24)); // Convertir a días
+
+  // Validar que las fechas tengan un rango positivo
+  if (dias > 0) {
+    // Calcular el precio total
+    const precioTotal = dias * precioPorNoche;
+    document.getElementById("modalPrecioTotal").value = `S/ ${precioTotal.toFixed(2)}`;
+  } else {
+    document.getElementById("modalPrecioTotal").value = "Selecciona fechas válidas";
   }
 }
-document.getElementById("modalFechaIngreso").addEventListener("change", calcularPrecioTotal);
-document.getElementById("modalFechaSalida").addEventListener("change", calcularPrecioTotal);
+
+
+// Mostrar el formulario de registro
+document.getElementById("btnRegistro").addEventListener("click", function () {
+  window.location.href = "/registro.html";
+});
+
+// Redirigir al login
+document.getElementById("btnLogin").addEventListener("click", function () {
+  window.location.href = "/login.html"; // Cambia la URL al endpoint de tu login
+});
+
