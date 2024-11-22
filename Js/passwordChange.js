@@ -13,7 +13,7 @@ document.getElementById("sendCodeButton").addEventListener("click", async functi
   
     // Enviar el número de teléfono a n8n para generar y enviar el código
     try {
-      const response = await fetch("https://n8n.ejesxyz.com/webhook-test/912df1a0-6d03-4a40-89a5-7c1c68ffcf2c", {
+      const response = await fetch("https://n8n.ejesxyz.com/webhook/912df1a0-6d03-4a40-89a5-7c1c68ffcf2c", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -55,7 +55,7 @@ document.getElementById("sendCodeButton").addEventListener("click", async functi
   
     // Enviar el código y el número de teléfono a n8n para verificar
     try {
-      const response = await fetch("https://n8n.ejesxyz.com/webhook-test/bca6116d-0d63-4c2b", {
+      const response = await fetch("https://n8n.ejesxyz.com/webhook/bca6116d-0d63-4c2b", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
