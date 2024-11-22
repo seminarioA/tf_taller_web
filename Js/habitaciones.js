@@ -317,7 +317,7 @@ function calcularPrecioTotal() {
 
 // Mostrar el formulario de registro
 document.getElementById("btnRegistro").addEventListener("click", function () {
-  window.location.href = "/registro.html";
+  window.location.href = "/register.html";
 });
 
 // Redirigir al login
