@@ -3,13 +3,13 @@ function mostrarHabitaciones(lista) {
   container.innerHTML = ""; // Limpiar el contenedor
 
   lista.forEach((habitacion, index) => {
-    const card = `
-        <div class="col-md-4 mb-4">
-          <div class="card shadow position-relative">
+    const card = `<div class="col-md-4 mb-4">
+    <div class="card shadow position-relative">
             <div class="position-relative">
               <img src="${habitacion.img}" class="card-img-top" alt="${habitacion.Tipo}">
-              <div class="position-absolute bottom-0 start-0 text-white px-3 py-1 shadow-sm fs-4">
-                 <b>${habitacion.Tipo}</b>
+              <div class="position-absolute bottom-0 start-0 bg-white px-3 pt-2 bg-opacity-100 rounded-top">
+                <h5 class="text-primary">
+                 <b>${habitacion.Tipo}</b></h5>
               </div>
             </div>
             
@@ -20,7 +20,7 @@ function mostrarHabitaciones(lista) {
                 <i class="fa-solid fa-money-bill text-dark  fs-5"></i>  <b class='text-dark  fs-5'>S/ ${habitacion.PrecioPorNoche}</b> </br> <span class='text-secondary fs-6'>por noche</span>
               </p>
             </div>
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end  me-md-2 mb-2">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end  me-md-2">
                 <button  class="btn btn-primary abrir-modal-reserva" 
                         type="button" 
                         data-index="${index}" 
@@ -28,8 +28,7 @@ function mostrarHabitaciones(lista) {
                         data-bs-target="#reservaModal" ><i class="fa-solid fa-right-to-bracket"></i> Reservar</button>
             </div>
           </div>
-        </div>
-      `;
+        </div>`;
     container.innerHTML += card;
   });
   // Agregar eventos para abrir el modal
@@ -171,7 +170,7 @@ document.getElementById("reservaForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
   const loggedIn = localStorage.getItem("loggedIn");
-  const clienteID = localStorage.getItem("ClienteID");
+  const clienteID = localStorage.getItem("ID");
   const habitacion = {
     tipo: document.getElementById("modalTipo").value,
     capacidad: document.getElementById("modalCapacidad").value,
@@ -198,7 +197,7 @@ document.getElementById("reservaForm").addEventListener("submit", function (e) {
       ...fechas,
     };
 
-    fetch("https://n8n.ejesxyz.com/webhook/reserva", {
+    fetch("https://n8n.ejesxyz.com/webhook/1d1ca332-9ddc-45d5-85f4-5b782fbd01ac", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -218,55 +217,7 @@ document.getElementById("reservaForm").addEventListener("submit", function (e) {
         console.error("Error al confirmar reserva:", error);
         alert("No se pudo confirmar la reserva. Intenta nuevamente.");
       });
-  } else {
-    // Usuario no logueado: crear cliente y luego realizar reserva
-    const cliente = {
-      nombre: document.getElementById("modalNombre").value,
-      dni: document.getElementById("modalDNI").value,
-    };
-
-    fetch("https://n8n.ejesxyz.com/webhook/create-cliente", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(cliente),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.success) {
-          // Realizar la reserva con el ID del cliente recién creado
-          const reserva = {
-            clienteID: data.clienteID,
-            ...habitacion,
-            ...fechas,
-          };
-
-          return fetch("https://n8n.ejesxyz.com/webhook/reserva", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(reserva),
-          });
-        } else {
-          throw new Error("Error al crear cliente.");
-        }
-      })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.success) {
-          alert("Cliente registrado y reserva confirmada.");
-          cerrarModal();
-        } else {
-          throw new Error("Error al confirmar reserva.");
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        alert("No se pudo completar la operación. Intenta nuevamente.");
-      });
-  }
+  } 
 });
 
 function cerrarModal() {

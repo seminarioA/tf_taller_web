@@ -68,7 +68,7 @@ function actualizarDisponibilidad() {
             estadoDiv.classList.add("estado-habitacion");
 
             
-            estadoDiv.textContent = estado === "disponible" ? "✔️" : "❌";
+            estadoDiv.textContent = estado === "disponible" ? "✅" : "❌";
 
             
             const coords = area.coords.split(",").map(Number);
