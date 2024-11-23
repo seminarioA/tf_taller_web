@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .then((data) => {
             habitaciones = data.habitaciones;
             console.log(habitaciones);
+            actualizarDisponibilidad();
         })
         .catch((error) => console.error("Error al obtener los datos:", error));
 
@@ -39,5 +40,36 @@ document.addEventListener("DOMContentLoaded", function () {
                 alert("Habitación no encontrada.");
             }
         });
+        
     });
 });
+
+function actualizarDisponibilidad() {
+    const mapa = document.querySelector(".mapa-container");
+
+    document.querySelectorAll("area").forEach((area) => {
+        const habitacionId = area.href.split("/").pop();
+        const habitacion = habitaciones.find((h) => h.id === habitacionId);
+
+        if (habitacion) {
+            const estado = habitacion.Estado.toLowerCase();
+
+            const estadoDiv = document.createElement("div");
+            estadoDiv.classList.add("estado-habitacion");
+
+            
+            estadoDiv.textContent = estado === "disponible" ? "✔️" : "❌";
+
+            
+            const coords = area.coords.split(",").map(Number);
+            const x = coords[0];
+            const y = coords[1];
+
+            estadoDiv.style.left = `${x}px`;
+            estadoDiv.style.top = `${y}px`;
+
+            
+            mapa.appendChild(estadoDiv);
+        }
+    });
+}
