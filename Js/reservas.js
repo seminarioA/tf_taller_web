@@ -9,14 +9,14 @@ function mostrarReservas(lista){
             
             <div class="position-relative">
               <img src="${reserva.img[0]}" class="card-img-top rounded-top" alt="${reserva.Tipo}" loading="lazy">
-              <div class="position-absolute top-0 start-0 bg-light bg-opacity-75 text-primary px-3 py-2 rounded-end">
+              <div class="position-absolute top-0 start-0 bg-white  text-primary px-3 py-2 rounded-bottom">
                 <span class="fw-bold fs-5">${reserva.Tipo}</span>
               </div>
-              <div class="position-absolute bottom-0 start-0 bg-light text-primary px-3 py-2 rounded-end">
-                <h5 class="card-title text-primary">
+              <div class="position-absolute bottom-0 start-0 bg-white px-3 pt-2 bg-opacity-100 rounded-top">
+                <h6 class="text-primary">
                 <i class="fa-solid fa-circle-check"></i> Estado: 
-                <span class="badge bg-${reserva.Estado === 'Confirmada' ? 'success' : 'warning'}">${reserva.Estado}</span>
-              </h5>
+                <span class="text-white fs-6 badge rounded-pill text-bg-${reserva.Estado === 'Confirmada' ? 'success' : 'info'} ">${reserva.Estado}</span>
+              </h6>
               </div>
             </div>
             
@@ -27,12 +27,9 @@ function mostrarReservas(lista){
                 <span class="fw-semibold">${reserva.FechaEntrada}</span></li>
                 <li class="list-group-item"><i class="fa-solid fa-calendar-day text-muted"></i> Salida: 
                 <span class="fw-semibold">${reserva.FechaSalida}</span></li>
+                <li class="list-group-item text-center"><i class="fa-solid fa-money-bill-wave text-success"></i> 
+                <span class="fw-bold fs-5">S/ ${reserva.Calculation}</span></li>
             </ul>
-              <p class="card-text">
-                <i class="fa-solid fa-money-bill-wave text-success"></i> Precio Total: 
-                <span class="fw-bold fs-5">S/ ${reserva.Calculation}</span>
-              </p>
-              <!-- Botón de acción -->
               <div class="mt-auto">
                 <button class="btn btn-primary w-100 abrir-modal-reserva" data-index="${index}">
                   <i class="fa-solid fa-eye"></i> Ver más
@@ -63,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Referencias a los elementos del menú
     fetch(
-        "https://n8n.ejesxyz.com/webhook-test/af1be105-4633-44d0-bf51-4ba4ff8fea2f",
+        "https://n8n.ejesxyz.com/webhook/af1be105-4633-44d0-bf51-4ba4ff8fea2f",
         {
           method: "POST",
           headers: {
