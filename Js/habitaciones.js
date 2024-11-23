@@ -2,7 +2,7 @@ function mostrarHabitaciones(lista) {
   const container = document.getElementById("habitaciones-container");
   container.innerHTML = ""; // Limpiar el contenedor
 
-  lista.forEach((habitacion,index) => {
+  lista.forEach((habitacion, index) => {
     const card = `
         <div class="col-md-4 mb-4">
           <div class="card shadow position-relative">
@@ -134,35 +134,35 @@ function abrirModalReserva(habitacion) {
     document.getElementById("datosHabitacion").style.display = "none";
 
     if (loggedIn === "true") {
-        // Si está logueado, salta directo a la tercera pantalla
-        document.getElementById("datosFechas").style.display = "block";
-        document.getElementById("datosUsuario").style.display = "none";
+      // Si está logueado, salta directo a la tercera pantalla
+      document.getElementById("datosFechas").style.display = "block";
+      document.getElementById("datosUsuario").style.display = "none";
     } else {
-        // Si no está logueado, muestra la segunda pantalla
-        document.getElementById("datosUsuario").style.display = "block";
-        document.getElementById("datosFechas").style.display = "none";
+      // Si no está logueado, muestra la segunda pantalla
+      document.getElementById("datosUsuario").style.display = "block";
+      document.getElementById("datosFechas").style.display = "none";
     }
-});
+  });
 
-document.getElementById("btnRegresar1").addEventListener("click", function () {
+  document.getElementById("btnRegresar1").addEventListener("click", function () {
     // Regresar a la primera pantalla
     document.getElementById("datosHabitacion").style.display = "block";
     document.getElementById("datosUsuario").style.display = "none";
-});
+  });
 
-document.getElementById("btnSiguiente2").addEventListener("click", function () {
+  document.getElementById("btnSiguiente2").addEventListener("click", function () {
     // Ir a la tercera pantalla desde la segunda
     document.getElementById("datosUsuario").style.display = "none";
     document.getElementById("datosFechas").style.display = "block";
-});
+  });
 
-document.getElementById("btnRegresar2").addEventListener("click", function () {
+  document.getElementById("btnRegresar2").addEventListener("click", function () {
     // Regresar a la segunda pantalla desde la tercera
     if (loggedIn !== "true") {
-        document.getElementById("datosUsuario").style.display = "block";
+      document.getElementById("datosUsuario").style.display = "block";
     }
     document.getElementById("datosHabitacion").style.display = "none";
-});
+  });
 
 }
 

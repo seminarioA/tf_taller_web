@@ -1,60 +1,60 @@
 .hero {
-    position: relative;
-    height: 100vh;
-    background: url('/assets/heroPrincipal.png') no-repeat center center/cover;
-    color: #fff;
-  }
+  position: relative;
+  height: 100vh;
+  background: url('/assets/heroPrincipal.png') no-repeat center center/cover;
+  color: #fff;
+}
 
-  .hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-  }
-  
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.hero-content {
+  position: absolute;
+  top: 20%;
+  width: 100%;
+  text-align: center;
+
+}
+
+form#exploraForm {
+  max-width: 1200px;
+  color: black;
+}
+
+.card {
+  border: none;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+
+.card-img-top {
+  height: 300px;
+  object-fit: cover;
+}
+
+
+
+.position-absolute.top-0.end-0 {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.card-body {
+  text-align: center;
+  padding: 1rem;
+  padding-bottom: 0;
+}
+
+@media (max-width:780px) {
   .hero-content {
-    position: absolute;
-    top: 20%;
-    width: 100%;
-    text-align: center;
-   
+    top: 5%;
   }
-  
-  form#exploraForm {
-    max-width: 1200px;
-    color: black;
-  }
-  
-  .card {
-    border: none;
-    border-radius: 0.5rem;
-    overflow: hidden;
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
-  
-
-  .card-img-top {
-    height: 300px;
-    object-fit: cover;
-  }
-  
-
-  
-  .position-absolute.top-0.end-0 {
-    font-size: 1rem;
-    font-weight: bold;
-  }
-  
-  .card-body {
-    text-align: center;
-    padding: 1rem;
-    padding-bottom: 0;
-  }
-  
-  @media (max-width:780px) {
-    .hero-content {
-      top: 5%;
-    }
-  }
+}

@@ -1,9 +1,9 @@
-function mostrarReservas(lista){
-    const container = document.getElementById("reservas-container");
-    container.innerHTML = ""; // Limpiar el contenedor
-  
-    lista.forEach((reserva,index) => {
-        const card = `
+function mostrarReservas(lista) {
+  const container = document.getElementById("reservas-container");
+  container.innerHTML = ""; // Limpiar el contenedor
+
+  lista.forEach((reserva, index) => {
+    const card = `
         <div class="col-md-4 col-sm-6 mb-4">
           <div class="card shadow-lg border-0 rounded-3 h-100">
             
@@ -39,50 +39,50 @@ function mostrarReservas(lista){
           </div>
         </div>
       `;
-      container.innerHTML += card;
+    container.innerHTML += card;
+  });
+  // Agregar eventos para abrir el modal
+  document.querySelectorAll(".abrir-modal-reserva").forEach((btn) => {
+    btn.addEventListener("click", function () {
+      const index = this.dataset.index;
+      console.log(index)
+      const habitacion = lista[index];
+      console.log(habitacion)
+      abrirModalReserva(habitacion);
     });
-    // Agregar eventos para abrir el modal
-    document.querySelectorAll(".abrir-modal-reserva").forEach((btn) => {
-      btn.addEventListener("click", function () {
-        const index = this.dataset.index;
-        console.log(index)
-        const habitacion = lista[index];
-        console.log(habitacion)
-        abrirModalReserva(habitacion);
-      });
-    });
-    if (lista.length === 0) {
-      container.innerHTML = "<p class='text-danger text-center'>No hay habitaciones disponibles para el rango de fechas seleccionado.</p>";
-    }
+  });
+  if (lista.length === 0) {
+    container.innerHTML = "<p class='text-danger text-center'>No hay habitaciones disponibles para el rango de fechas seleccionado.</p>";
+  }
 }
 document.addEventListener("DOMContentLoaded", function () {
-    const ID = localStorage.getItem("UsuarioID");
+  const ID = localStorage.getItem("UsuarioID");
 
-    // Referencias a los elementos del menú
-    fetch(
-        "https://n8n.ejesxyz.com/webhook/af1be105-4633-44d0-bf51-4ba4ff8fea2f",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            'Id':ID
-          }),
-        }
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          sessionStorage.setItem("MisReservas", JSON.stringify(data.reservas));
-          // Mostrar todas las habitaciones disponibles inicialmente
-          mostrarReservas(data.reservas);
-        })
-        .catch((error) => {
-          console.error("Error al cargar habitaciones:", error);
-          document.getElementById("reservas-container").innerHTML =
-            `<div class="alert alert-danger text-center" role="alert">
+  // Referencias a los elementos del menú
+  fetch(
+    "https://n8n.ejesxyz.com/webhook/af1be105-4633-44d0-bf51-4ba4ff8fea2f",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        'Id': ID
+      }),
+    }
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      sessionStorage.setItem("MisReservas", JSON.stringify(data.reservas));
+      // Mostrar todas las habitaciones disponibles inicialmente
+      mostrarReservas(data.reservas);
+    })
+    .catch((error) => {
+      console.error("Error al cargar habitaciones:", error);
+      document.getElementById("reservas-container").innerHTML =
+        `<div class="alert alert-danger text-center" role="alert">
             <i class="fa-solid fa-exclamation-circle"></i> 
             Error al cargar las habitaciones disponibles.
           </div>`;
-        });
-  });
+    });
+});

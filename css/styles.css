@@ -1,16 +1,19 @@
-.titulo{
+.titulo {
     background-color: white;
     max-width: 20%;
-    
+
 }
-*{
+
+* {
     font-family: "Poppins", sans-serif;
 }
-.boton{
-    top:15px;
-    left:250px;
+
+.boton {
+    top: 15px;
+    left: 250px;
 }
-.registro{
+
+.registro {
     position: relative;
     background: url('/assets/heroPrincipal.png') no-repeat center center/cover;
-  }
+}
