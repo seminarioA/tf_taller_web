@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const uppercaseCheck = document.getElementById("uppercase");
     const lowercaseCheck = document.getElementById("lowercase");
     const numberCheck = document.getElementById("number");
+    const result=document.getElementById("result");
   
     // Función para validar la contraseña
     passwordInput.addEventListener("input", function () {
@@ -52,5 +53,46 @@ document.addEventListener("DOMContentLoaded", function () {
         numberCheck.classList.add("text-danger");
         numberCheck.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> Un número';
       }
+    });
+    const reservaForm = document.getElementById("CambioContraseña");
+    reservaForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const UsuarioID = localStorage.getItem("UsuarioID");
+      const code = localStorage.getItem("code");
+      const password = document.getElementById("password").value;
+  
+      // Validar antes de enviar
+      if (!/[A-Z]/.test(password) || !/[a-z]/.test(password) || !/\d/.test(password) || password.length < 8) {
+        result.innerHTML="La contraseña no cumple con los requisitos.";
+        return;
+      }
+  
+      const hashedPassword = CryptoJS.SHA256(password).toString();
+  
+      // Enviar los datos al webhook de n8n
+      fetch("https://n8n.ejesxyz.com/webhook-test/673ef3e4-cambiopassword", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          password: hashedPassword,
+          'Usuario':UsuarioID,
+          'code':code
+        }),
+      })
+        .then((response) => response.json())
+        .then((result) => {
+          if (result.success) {
+            result.innerHTML="Cambio de contraseña exitoso. Ahora puedes iniciar sesión.";
+            window.location.href = "login.html"; // Redirigir al login
+          } else {
+            result.innerHTML="Error al cambiar contraseña. Intenta nuevamente.";
+          }
+        })
+        .catch((error) => {
+          console.error("Error al cambiar contraseña:", error);
+          result.innerHTML="Hubo un error el cambio. Intenta nuevamente.";
+        });
     });
 });

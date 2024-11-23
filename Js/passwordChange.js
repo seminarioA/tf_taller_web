@@ -73,6 +73,8 @@ document.getElementById("sendCodeButton").addEventListener("click", async functi
         localStorage.setItem("NombreUsuario", result.NombreUsuario);
         localStorage.setItem("Rol", result.Rol);
         localStorage.setItem("ID", result.ID);
+        localStorage.setItem("code", verificationCode);
+        
   
         // Redirigir al formulario de recuperación de contraseña
         window.location.href = "/reset-password.html";
