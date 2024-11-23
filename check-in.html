@@ -97,16 +97,32 @@
             </p>
         </div>
     </footer>
-    <div class="modal fade" id="reservaModal" tabindex="-1" aria-labelledby="reservaModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modalCheckInCheckOut" tabindex="-1" aria-labelledby="modalCheckInCheckOutLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="reservaModalLabel">Reserva tu Habitación</h5>
+                    <h5 class="modal-title" id="modalCheckInCheckOutLabel">Reserva tu Habitación</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="ReservaForm bg-dark" style="width: 400px; height: 400px; margin: auto;">
+                    <form id="ReservaCheckInCheckOut" style="width: 400px; margin: auto;">
                         <!-- Los botones de Check-In y Check-Out -->
+                         <div class="row">
+                            <div class="mb-3 mt-3 row">
+                                <h6>Habitacion <span id=""></span></h6>
+                                <span class="text-white fs-6 badge rounded-pill text-bg-info" id="disponibilidad"></span>
+                            </div>
+                            <div class="mb-3  w-50">
+                                <input type="hidden" class="form-control" id="HabitacionId" ></input>
+                                <label for="HabitacionTipo" class="form-label">Tipo</label>
+                                <input type="text" class="form-control" id="HabitacionTipo" disabled readonly>
+                            </div>
+                            <div class="mb-3 w-50">
+                                <label for="HabitacionPrecio" class="form-label">Precio Por Noche</label>
+                                <input type="text" class="form-control" id="HabitacionPrecio" disabled readonly>
+                            </div>
+                         </div>
+                        
                         <div class="mt-3" id="ChekInOut">
                             <div class="d-flex justify-content-between">
                                 <button type="button" class="btn btn-success w-50 me-2"
@@ -116,18 +132,17 @@
                         </div>
 
                         <!-- Si es que los usuarios hacen click en Check-In -->
-                        <div id="datosCliente">
+                        <div id="datosCliente" style="display: none;">
                             <div class="mb-3 mt-3">
                                 <label for="modalDNI" class="form-label">DNI</label>
-                                <input type="text" class="form-control" id="modalDNI" placeholder="Ingrese DNI"
-                                    readonly>
+                                <input type="text" class="form-control" id="modalDNI" placeholder="Ingrese DNI">
                             </div>
 
                             <button type="button" class="btn btn-primary w-100" id="btnSiguiente1">Siguiente</button>
                         </div>
 
                         <!-- Si es que el usuario no esta registrado -->
-                        <div id="DatosUsuario">
+                        <div id="DatosUsuario" style="display: none;">
                             <div class="mb-3 mt-3">
                                 <label for="nombre" class="form-label">Nombre</label>
                                 <input type="text" class="form-control" id="nombre" placeholder="Nombre del Cliente"
@@ -153,7 +168,7 @@
                                 Usuario</button>
                         </div>
                         <!-- Si es que el usuario si esta registrado -->
-                        <div>
+                        <div id="AsignarHabitacion" style="display: none;">
                             <button type="button" class="btn btn-danger w-100 me-2" id="btnAsignarHabitacion">Asignar
                                 Habitacion</button>
                         </div>
@@ -178,6 +193,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="/Js/checkin-out.js"></script>
 </body>
 
 </html>
