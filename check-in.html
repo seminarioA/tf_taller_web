@@ -88,7 +88,9 @@
                 <area target="" alt="F" title="F" href="recZWZPEP3Ca6XUJ8" coords="117,15,236,107" shape="rect">
             </map>
         </div>
+        
     </main>
+
     <footer class="mt-auto bg-light py-3 text-center">
         <div class="container">
             <p class="mb-0">
@@ -96,6 +98,60 @@
             </p>
         </div>
     </footer>
+     
+    
+                <div class="modal-body">
+                    <form id="reservaForm">
+                        <!-- Parte 1: Datos de la Habitación -->
+                        <div id="datosHabitacion">
+                            <div class="mb-3">
+                                <label for="modalTipo" class="form-label">Tipo de Habitación</label>
+                                <input type="text" class="form-control" id="modalTipo" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="modalCapacidad" class="form-label">Capacidad</label>
+                                <input type="text" class="form-control" id="modalCapacidad" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="modalPrecio" class="form-label">Precio por Noche</label>
+                                <input type="text" class="form-control" id="modalPrecio" readonly>
+                            </div>
+                            <button type="button" class="btn btn-primary w-100" id="btnSiguiente1">Siguiente</button>
+                        </div>
+    
+                        <!-- Parte 2: Datos del Usuario -->
+                        <div id="datosUsuario" >
+                          <p>¿Ya tienes una cuenta?</p>
+                          <div class="d-flex justify-content-between">
+                            <button type="button" class="btn btn-primary w-50 me-2" id="btnLogin">Inicia Sesión</button>
+                            <button type="button" class="btn btn-secondary w-50" id="btnRegistro">Regístrate</button>
+                          </div>
+                        
+                          
+                        </div>
+    
+                        <!-- Parte 3: Fechas de Reserva -->
+                        <div id="datosFechas" >
+                            <div class="mb-3">
+                                <label for="modalFechaIngreso" class="form-label">Fecha de Ingreso</label>
+                                <input type="date" class="form-control" id="modalFechaIngreso" onchange="calcularPrecioTotal()" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="modalFechaSalida" class="form-label">Fecha de Salida</label>
+                                <input type="date" class="form-control" id="modalFechaSalida" onchange="calcularPrecioTotal()" required>
+  
+                            </div>
+                            <div class="mb-3">
+                                <label for="modalPrecioTotal" class="form-label">Precio Total</label>
+                                <input type="text" class="form-control" id="modalPrecioTotal" readonly>
+                            </div>
+                            
+                            <button type="button" class="btn btn-secondary " id="btnRegresar2">Regresar</button>
+                            <button type="submit" class="btn btn-primary btn-block">Confirmar Reserva</button>
+                        </div>
+                    </form> </div>
+           
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>

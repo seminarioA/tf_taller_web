@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const hashedPassword = CryptoJS.SHA256(password).toString();
   
       // Enviar los datos al webhook de n8n
-      fetch("https://n8n.ejesxyz.com/webhook-test/673ef3e4-cambiopassword", {
+      fetch("https://n8n.ejesxyz.com/webhook/673ef3e4-cambiopassword", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
