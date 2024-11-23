@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
             habitaciones = data.habitaciones;
             console.log(habitaciones);
             actualizarDisponibilidad();
+            CheckIn();
         })
         .catch((error) => console.error("Error al obtener los datos:", error));
 
@@ -43,7 +44,16 @@ document.addEventListener("DOMContentLoaded", function () {
         
     });
 });
+function CheckIn(){
+    let btnCheckIn=document.getElementById("btnCheckIn");
+    let datosCliente=document.getElementById("datosCliente");
+    btnCheckIn.addEventListener("click",(e)=> {
+    e.preventDefault();
+    datosCliente.style.display = "block";
+}
 
+)
+}
 function actualizarDisponibilidad() {
     const mapa = document.querySelector(".mapa-container");
 
