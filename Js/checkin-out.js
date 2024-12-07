@@ -35,9 +35,16 @@ document.addEventListener("DOMContentLoaded", function () {
         habitacionTipo1 = habitacion.Tipo; // Asignar a la variable global
         console.log("Habitación seleccionada (Tipo):", habitacionTipo1);
         document.getElementById("disponibilidad").innerText = habitacion.Estado;
-        document.getElementById("HabitacionPrecio").value =
-          "S/" + habitacion.PrecioPorNoche;
-
+        document.getElementById("HabitacionPrecio").value ="S/" + habitacion.PrecioPorNoche;
+          const btnCheckOut = document.getElementById("btnCheckOut");
+          const btnCheckIn = document.getElementById("btnCheckIn");
+          if (habitacion.Estado === "Ocupada") {
+            btnCheckOut.style.display = "block"; // Mostrar botón si está ocupada
+            btnCheckIn.style.display = "none"; 
+          } else {
+            btnCheckIn.style.display = "block"; 
+            btnCheckOut.style.display = "none"; // Ocultar botón si no está ocupada
+          }
         // Muestra el modal
         const modal = new bootstrap.Modal(
           document.getElementById("modalCheckInCheckOut")
@@ -58,8 +65,42 @@ function CheckIn() {
   let DatosUsuario = document.getElementById("DatosUsuario");
   let AsignarHabitacion = document.getElementById("AsignarHabitacion");
   let infoCliente = document.querySelector(".info-cliente");
+  let hiddenReservaId = document.getElementById("ReservaId"); 
+  let btnCheckOut = document.getElementById("btnCheckOut");
 
-  // Paso 1: Mostrar formulario para ingresar el DNI
+  btnCheckOut.addEventListener("click", async (e) => {
+    e.preventDefault();
+  
+    // Obtener el ID de la habitación
+    const habitacionId = document.getElementById("HabitacionId").value;
+  
+    if (!habitacionId) {
+      alert("No se encontró una habitación válida para realizar el Check-Out.");
+      return;
+    }
+  
+    try {
+      // Enviar el webhook con el ID de la habitación
+      const response = await fetch("https://n8n.ejesxyz.com/webhook-test/amadeus-check-out", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ habitacionId }),
+      });
+  
+      const result = await response.json();
+      console.log("Resultado del webhook:", result);
+  
+      if (result.success) {
+        alert("Check-Out realizado exitosamente.");
+      } else {
+        alert("Error al realizar el Check-Out.");
+      }
+    } catch (error) {
+      console.error("Error al enviar el webhook de Check-Out:", error);
+    }
+  });
   btnCheckIn.addEventListener("click", (e) => {
     e.preventDefault();
     datosCliente.style.display = "block";
@@ -92,7 +133,8 @@ function CheckIn() {
       console.log(result);
       if (result.exists) {
         // El cliente existe, mostrar su información
-        alert("Cliente encontrado: " + result.nombre);
+        alert("Cliente encontrado: " + result.nombre+"Reserva: "+result.idReserva);
+        hiddenReservaId.value = result.idReserva;
         DatosUsuario.style.display = "none"; // Ocultar formulario de creación
         btnSiguiente1.style.display = "none";
         AsignarHabitacion.style.display = "block"; // Mostrar botón para asignar habitación
@@ -157,7 +199,7 @@ function CheckIn() {
   btnAsignarHabitacion.addEventListener("click", async (e) => {
     e.preventDefault();
     const habitacionId = document.getElementById("HabitacionId").value;
-
+    const ReservaId = document.getElementById("ReservaId").value;
     try {
       // Enviar webhook para cambiar el estado de la habitación y reserva
       const response = await fetch(
@@ -167,7 +209,7 @@ function CheckIn() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ habitacionId, estado: "Ocupada" }),
+          body: JSON.stringify({ habitacionId, estado: "Ocupada",ReservaId }),
         }
       );
 
@@ -196,7 +238,13 @@ function actualizarDisponibilidad() {
       const estadoDiv = document.createElement("div");
       estadoDiv.classList.add("estado-habitacion");
 
-      estadoDiv.textContent = estado === "disponible" ? "🟢" : "🔴";
+      if (estado === "disponible") {
+        estadoDiv.textContent = "🟢";
+      } else if (estado === "ocupada") {
+        estadoDiv.textContent = "🔴";
+      } else {
+        estadoDiv.textContent = "🟠"; 
+      }
 
       const coords = area.coords.split(",").map(Number);
       const x = coords[0];
