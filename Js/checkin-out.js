@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Rellena el modal con los datos de la habitación
         document.getElementById("HabitacionId").value = habitacion.id;
         document.getElementById("HabitacionTipo").value = habitacion.Tipo;
-        const habitacionTipo1=habitacion.Tipo;
+        let habitacionTipo1=habitacion.Tipo;
         document.getElementById("disponibilidad").innerText = habitacion.Estado;
         document.getElementById("HabitacionPrecio").value =
           "S/" + habitacion.PrecioPorNoche;
