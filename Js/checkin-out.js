@@ -57,6 +57,7 @@ function CheckIn() {
   let modalDNI = document.getElementById("modalDNI");
   let DatosUsuario = document.getElementById("DatosUsuario");
   let AsignarHabitacion = document.getElementById("AsignarHabitacion");
+  let infoCliente = document.querySelector(".info-cliente");
 
   // Paso 1: Mostrar formulario para ingresar el DNI
   btnCheckIn.addEventListener("click", (e) => {
@@ -77,7 +78,7 @@ function CheckIn() {
     try {
       // Enviar el DNI al webhook para verificar si el cliente existe
       const response = await fetch(
-        "https://n8n.ejesxyz.com/webhook-test/amadeus-verificar-cliente",
+        "https://n8n.ejesxyz.com/webhook/amadeus-verificar-cliente",
         {
           method: "POST",
           headers: {
@@ -93,14 +94,18 @@ function CheckIn() {
         // El cliente existe, mostrar su información
         alert("Cliente encontrado: " + result.nombre);
         DatosUsuario.style.display = "none"; // Ocultar formulario de creación
+        btnSiguiente1.style.display = "none";
         AsignarHabitacion.style.display = "block"; // Mostrar botón para asignar habitación
 
         // Mostrar la habitación más cercana a hoy
         const habitacionInfo = `
-            Tipo de habitación: ${result.tipoHabitacion}
-            Nombre del cliente: ${result.nombre}
-          `;
-        alert(habitacionInfo);
+          <p><strong>Tipo de habitación:</strong> ${result.tipoHabitacion}</p>
+          <p><strong>Nombre del cliente:</strong> ${result.nombre}</p>
+        `;
+
+        
+        infoCliente.innerHTML = habitacionInfo;
+        infoCliente.style.display = "block";
       } else {
         // El cliente no existe, mostrar formulario para crear usuario
         alert("Cliente no encontrado. Ingresa sus datos.");
@@ -120,7 +125,7 @@ function CheckIn() {
     const dni = document.getElementById("dni").value;
     const celular = document.getElementById("celular").value;
     const email = document.getElementById("email").value;
-
+    btnSiguiente1.style.display = "none";
     try {
       // Enviar datos al webhook para crear el usuario y la reserva
       const response = await fetch(
