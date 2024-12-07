@@ -85,7 +85,7 @@ function CheckIn() {
       );
 
       const result = await response.json();
-
+      console.log(result);
       if (result.exists) {
         // El cliente existe, mostrar su información
         alert("Cliente encontrado: " + result.nombre);
