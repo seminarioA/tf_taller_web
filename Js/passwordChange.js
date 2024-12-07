@@ -5,7 +5,11 @@ document.getElementById("sendCodeButton").addEventListener("click", async functi
     alert("Por favor, ingresa tu número de celular.");
     return;
   }
-
+  const button2 = document.querySelector('button.iti__selected-country');
+  const dialCodeElement = button2.querySelector('.iti__selected-dial-code');
+  const dialCode = dialCodeElement.textContent;
+  const numericDialCode = dialCode.replace('+', '');
+  const numeroCompleto = numericDialCode + phone;
   // Deshabilitar botón mientras se procesa
   const button = document.getElementById("sendCodeButton");
   button.disabled = true;
@@ -18,7 +22,7 @@ document.getElementById("sendCodeButton").addEventListener("click", async functi
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ phone }),
+      body: JSON.stringify({ numeroCompleto }),
     });
 
     const result = await response.json();
@@ -41,6 +45,11 @@ document.getElementById("sendCodeButton").addEventListener("click", async functi
 
 document.getElementById("verifyCodeButton").addEventListener("click", async function () {
   const phone = document.getElementById("phone").value;
+  const button2 = document.querySelector('button.iti__selected-country');
+  const dialCodeElement = button2.querySelector('.iti__selected-dial-code');
+  const dialCode = dialCodeElement.textContent;
+  const numericDialCode = dialCode.replace('+', '');
+  const numeroCompleto = numericDialCode + phone;
   const verificationCode = document.getElementById("verificationCode").value;
 
   if (!verificationCode) {
@@ -60,7 +69,7 @@ document.getElementById("verifyCodeButton").addEventListener("click", async func
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ phone, code: verificationCode }),
+      body: JSON.stringify({ numeroCompleto, code: verificationCode }),
     });
 
     const result = await response.json();
