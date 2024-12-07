@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const uppercaseCheck = document.getElementById("uppercase");
   const lowercaseCheck = document.getElementById("lowercase");
   const numberCheck = document.getElementById("number");
-
+  
   // Función para validar la contraseña
   passwordInput.addEventListener("input", function () {
     const password = passwordInput.value;
@@ -54,16 +54,21 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Lógica de registro (igual que antes)
-  const reservaForm = document.getElementById("reservaForm");
-  reservaForm.addEventListener("submit", function (e) {
+  
+  const registroForm = document.getElementById("registroForm");
+  registroForm.addEventListener("submit", function (e) {
     e.preventDefault();
-
+    // Selecciona el botón
+    const button = document.querySelector('button.iti__selected-country');
+    const dialCodeElement = button.querySelector('.iti__selected-dial-code');
+    const dialCode = dialCodeElement.textContent;
+    const numericDialCode = dialCode.replace('+', '');
     const nombre = document.getElementById("nombre").value;
     const dni = document.getElementById("dni").value;
     const celular = document.getElementById("celular").value;
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
+    const numeroCompleto = numericDialCode + celular;
 
     // Validar antes de enviar
     if (!/[A-Z]/.test(password) || !/[a-z]/.test(password) || !/\d/.test(password) || password.length < 8) {
@@ -82,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
       body: JSON.stringify({
         nombre,
         dni,
-        celular,
+        numeroCompleto,
         email,
         password: hashedPassword,
       }),

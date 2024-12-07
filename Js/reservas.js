@@ -3,8 +3,7 @@ function mostrarReservas(lista) {
   container.innerHTML = ""; // Limpiar el contenedor
 
   lista.forEach((reserva, index) => {
-    const card = `
-        <div class="col-md-4 col-sm-6 mb-4">
+    const card = `<div class="col-md-4 col-sm-6 mb-4">
           <div class="card shadow-lg border-0 rounded-3 h-100">
             
             <div class="position-relative">
@@ -37,8 +36,7 @@ function mostrarReservas(lista) {
               </div>
             </div>
           </div>
-        </div>
-      `;
+        </div>`;
     container.innerHTML += card;
   });
   // Agregar eventos para abrir el modal

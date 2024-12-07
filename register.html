@@ -10,13 +10,17 @@
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-    <link rel="stylesheet" href="/css/styles.css"></link>
+    <link rel="stylesheet" href="/css/styles.css">
+    </link>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
         href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Host+Grotesk:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet" />
     <title>Registro - Hotel Amadeus</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@25.0.1/build/css/intlTelInput.css">
+    <link rel="icon" href="/assets/favicon.png" type="image/png">
+
 </head>
 
 <body class="text-bg-light">
@@ -67,7 +71,7 @@
             </div>
         </div>
     </header>
-    <main class="container d-flex justify-content-center align-items-center" >
+    <main class="container d-flex justify-content-center align-items-center">
         <div class="card shadow-lg p-4" style="width: 100%; max-width: 400px;">
             <h1 class="text-center mb-4">Regístrate</h1>
             <form id="registroForm">
@@ -81,9 +85,8 @@
                         pattern="[0-9]{8}" required />
                 </div>
                 <div class="mb-3">
-                    <label for="celular" class="form-label">Celular</label>
-                    <input type="text" class="form-control" id="celular" placeholder="Tu número de celular"
-                        maxlength="9" pattern="[0-9]{9}" required />
+                    <label for="celular" class="form-label">Celular</label><br>
+                    <input type="text" class="form-control" id="celular" placeholder="Tu número de celular" required />
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Correo Electrónico</label>
@@ -96,7 +99,7 @@
                     <!-- Indicador de requisitos -->
                     <ul id="password-requirements" class="list-unstyled mt-2">
                         <li id="min-length" class="text-danger">
-                            <i class="fa-solid fa-circle-xmark"></i> Al menos 8 caracteres 
+                            <i class="fa-solid fa-circle-xmark"></i> Al menos 8 caracteres
                         </li>
                         <li id="uppercase" class="text-danger">
                             <i class="fa-solid fa-circle-xmark"></i> Una letra mayúscula
@@ -119,7 +122,34 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
-        <script src="/Js/registro.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@25.0.1/build/js/intlTelInput.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@25.0.1/build/js/utils.js"></script>
+    <script>
+        // Declarar la variable iti en el ámbito global del script
+        let iti;
+
+        // Inicializar intl-tel-input después de que el DOM esté cargado
+        document.addEventListener("DOMContentLoaded", () => {
+            const input = document.querySelector("#celular");
+
+            // Inicializar intl-tel-input y asignarlo a la variable global
+            iti = window.intlTelInput(input, {
+                initialCountry: "pe",
+                separateDialCode: true,
+                utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@25.0.1/build/js/utils.js",
+            });
+            input.addEventListener("countrychange", () => {
+                const countryCode = iti.getSelectedCountryData().dialCode;
+                const countryName = iti.getSelectedCountryData().name;
+            
+                console.log("País cambiado. Nuevo código del país:", countryCode);
+                console.log("Nuevo nombre del país:", countryName);
+              });
+        });
+
+    </script>
+    <script src="/Js/registro.js"></script>
     <script src="/Js/script.js"></script>
 </body>
 

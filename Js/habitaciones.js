@@ -20,7 +20,12 @@ function mostrarHabitaciones(lista) {
                 <i class="fa-solid fa-money-bill text-dark  fs-5"></i>  <b class='text-dark  fs-5'>S/ ${habitacion.PrecioPorNoche}</b> </br> <span class='text-secondary fs-6'>por noche</span>
               </p>
             </div>
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end  me-md-2">
+            <div class="card-body text-start justify-content-between">
+            <p class="card-text fs-6"><i class="fa-solid fa-wifi text-primary"></i> Wifi Gratis</p>
+              <p class="card-text fs-6"><i class="fa-solid fa-bell-concierge text-primary"></i> Recepción 24/7</p>
+              <p class="card-text fs-6"><i class="fa-solid fa-ban-smoking text-primary"></i> Habitaciones sin humo</p>
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end  me-md-2 mb-2">
                 <button  class="btn btn-primary abrir-modal-reserva" 
                         type="button" 
                         data-index="${index}" 
@@ -82,7 +87,7 @@ $(document).ready(function () {
     const numPersonas = parseInt($("#personas").val());
     const fechaIngreso = new Date($("#fechaIngreso").val());
     const fechaSalida = new Date($("#fechaSalida").val());
-
+    console.log(numPersonas);
     if (fechaIngreso >= fechaSalida) {
       alert("La fecha de salida debe ser posterior a la fecha de ingreso.");
       return;
@@ -95,13 +100,13 @@ $(document).ready(function () {
     // Filtrar habitaciones según las reservas
     const habitacionesDisponibles = habitaciones.filter((habitacion) => {
       // Verificar si la habitación tiene capacidad suficiente
-      if (habitacion.Capacidad < numPersonas) {
+      if (habitacion.Capacidad > numPersonas) {
         return false;
       }
 
       // Verificar si la habitación está reservada en el rango de fechas
       const reservasHabitacion = reservas.filter(
-        (reserva) => reserva["Tipo (from HabitacionID (FK)"][0] === habitacion.Tipo
+        (reserva) => reserva["Tipo"][0] === habitacion.Tipo
       );
 
       const enUso = reservasHabitacion.some((reserva) => {
