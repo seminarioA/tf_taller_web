@@ -143,6 +143,11 @@ $(document).ready(function () {
 
     // Mostrar habitaciones filtradas
     mostrarHabitaciones(habitacionesDisponibles);
+
+    const targetSection = document.querySelector('#habitaciones-disponibles');
+  if (targetSection) {
+    targetSection.scrollIntoView({ behavior: 'smooth' }); // Desplazamiento suave
+  }
   });
 });
 

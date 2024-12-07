@@ -39,13 +39,13 @@
       <div class="collapse navbar-collapse" id="navbarsExample03">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link" href=""><i class="fa-solid fa-hotel"></i> Inicio</a>
+            <a class="nav-link" href="/index.html"><i class="fa-solid fa-hotel"></i> Inicio</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href=""><i class="fa-solid fa-calendar"></i> Reserva</a>
+            <a class="nav-link" href="#habitaciones-disponibles"><i class="fa-solid fa-calendar"></i> Reserva</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href=""><i class="fa-solid fa-location-dot"></i> Visita Chota</a>
+            <a class="nav-link" href="/visita-chota.html"><i class="fa-solid fa-location-dot"></i> Visita Chota</a>
           </li>
           <li class="nav-item" id="menu-mis-reservas">
             <a class="nav-link" href="/mis-reservas.html"><i class="fa-solid fa-bookmark"></i> Mis Reservas</a>
@@ -120,7 +120,7 @@
     </section>
     <section class="container mt-5">
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6 d-flex flex-column justify-content-center">
           <h2>Bienvenidos a Chota</h2>
           <p>
             Chota, situada en la región de Cajamarca, es una ciudad con una historia que se remonta a épocas preincaicas. Fundada el 1 de noviembre de 1559 como "Todos los Santos", ha sido escenario de importantes eventos históricos y culturales.
@@ -131,14 +131,24 @@
           <a href="#habitaciones-disponibles" class="btn btn-primary mt-3">Ver Habitaciones Disponibles</a>
         </div>
         <div class="col-md-6">
-          <img src="assets/visitaChota/plazaDeArmasChota.jpg" class="img-fluid rounded" alt="Vista panorámica de Chota">
+          <img src="https://gentedechota.com/wp-content/uploads/2018/01/Chota-1970.jpg" 
+               class="img-fluid rounded" 
+               alt="Imagen antigua de Chota">
+          <small class="d-block text-muted text-center mt-2">
+            Imagen: <a href="https://gentedechota.com/chota/chota-del-ayer/" target="_blank" class="text-muted">Gente de Chota</a>
+          </small>
         </div>
       </div>
       <div class="row mt-4">
         <div class="col-md-6">
-          <img src="assets/hotel_amadeus.jpg" class="img-fluid rounded" alt="Gran Hotel Amadeus">
+          <img src="https://amadeushoteles.com/wp-content/uploads/2024/05/GOPR4656-1.jpg" 
+               class="img-fluid rounded" 
+               alt="Imagen dentro del hotel">
+          <small class="d-block text-muted text-center mt-2">
+            Entrada del hotel
+          </small>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 d-flex flex-column justify-content-center">
           <h2>Gran Hotel Amadeus</h2>
           <p>
             Desde 2002, el Gran Hotel Amadeus ha brindado a sus huéspedes un ambiente de confort y elegancia, reflejando las tradiciones de Chota. Ubicado en el corazón de la ciudad, es el lugar ideal para quienes buscan una estancia placentera y una inmersión en la cultura local.
@@ -151,6 +161,33 @@
       <div class="container mt-5">
         <h2 class="text-center mb-4">Habitaciones Disponibles</h2>
         <div id="habitaciones-container" class="row"></div>
+      </div>
+    </section>
+    <section class="py-5">
+      <h2 class="text-center mb-4">Nuestros Servicios</h2>
+      <div class="row">
+        <div class="col-md-4 text-center">
+          <i class="fa-solid fa-bed fa-3x text-primary mb-3"></i>
+          <h4>Habitaciones Confortables</h4>
+          <p>Disfruta de habitaciones diseñadas para garantizar tu comodidad y descanso.</p>
+        </div>
+        <div class="col-md-4 text-center">
+          <i class="fa-solid fa-utensils fa-3x text-primary mb-3"></i>
+          <h4>Restaurante Exclusivo</h4>
+          <p>Deléitate con los mejores platillos locales e internacionales.</p>
+        </div>
+        <div class="col-md-4 text-center">
+          <i class="fa-solid fa-map-marked-alt fa-3x text-primary mb-3"></i>
+          <h4>Ubicación Privilegiada</h4>
+          <p>Estamos en el corazón de Chota, cerca de los principales atractivos turísticos.</p>
+        </div>
+      </div>
+    </section>
+    <section class="my-5">
+
+      <h2 class="text-center">Encuéntranos</h2>
+      <div class="text-center">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15854.689111658856!2d-78.6495307!3d-6.5629864!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91b39f2ac4fc8649%3A0x1a5f89d3207fa00!2sGran%20Hotel%20Amadeus!5e0!3m2!1sen!2spe!4v1733541908550!5m2!1sen!2spe" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
     </section>
     <section class="cta-section text-white py-4" style="background-color: #007bff;">
@@ -207,15 +244,15 @@
             <div id="datosHabitacion">
               <div class="mb-3">
                 <label for="modalTipo" class="form-label">Tipo de Habitación</label>
-                <input type="text" class="form-control" id="modalTipo" readonly>
+                <input type="text" class="form-control" id="modalTipo" readonly disabled>
               </div>
               <div class="mb-3">
                 <label for="modalCapacidad" class="form-label">Capacidad</label>
-                <input type="text" class="form-control" id="modalCapacidad" readonly>
+                <input type="text" class="form-control" id="modalCapacidad" readonly disabled>
               </div>
               <div class="mb-3">
                 <label for="modalPrecio" class="form-label">Precio por Noche</label>
-                <input type="text" class="form-control" id="modalPrecio" readonly>
+                <input type="text" class="form-control" id="modalPrecio" readonly disabled>
               </div>
               <button type="button" class="btn btn-primary w-100" id="btnSiguiente1">Siguiente</button>
             </div>
