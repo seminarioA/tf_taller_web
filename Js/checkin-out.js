@@ -1,5 +1,5 @@
 let habitaciones = [];
-
+let habitacionTipo1="";
 document.addEventListener("DOMContentLoaded", function () {
   fetch(
     "https://n8n.ejesxyz.com/webhook/c2b44f0b-6def-4666-bbc6-aa25cc5898c6",
@@ -32,6 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Rellena el modal con los datos de la habitación
         document.getElementById("HabitacionId").value = habitacion.id;
         document.getElementById("HabitacionTipo").value = habitacion.Tipo;
+        const habitacionTipo1=habitacion.Tipo;
         document.getElementById("disponibilidad").innerText = habitacion.Estado;
         document.getElementById("HabitacionPrecio").value =
           "S/" + habitacion.PrecioPorNoche;
@@ -80,7 +81,7 @@ function CheckIn() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ dni }),
+          body: JSON.stringify({ dni,habitacionTipo1 }),
         }
       );
 
