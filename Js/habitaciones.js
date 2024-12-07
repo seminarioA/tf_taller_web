@@ -40,14 +40,15 @@ function mostrarHabitaciones(lista) {
   document.querySelectorAll(".abrir-modal-reserva").forEach((btn) => {
     btn.addEventListener("click", function () {
       const index = this.dataset.index;
-      console.log(index)
+      console.log(index);
       const habitacion = lista[index];
-      console.log(habitacion)
+      console.log(habitacion);
       abrirModalReserva(habitacion);
     });
   });
   if (lista.length === 0) {
-    container.innerHTML = "<p class='text-danger text-center'>No hay habitaciones disponibles para el rango de fechas seleccionado.</p>";
+    container.innerHTML =
+      "<p class='text-danger text-center'>No hay habitaciones disponibles para el rango de fechas seleccionado.</p>";
   }
 }
 
@@ -78,7 +79,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-
 $(document).ready(function () {
   $("#exploraForm").on("submit", function (e) {
     e.preventDefault();
@@ -97,26 +97,49 @@ $(document).ready(function () {
     const habitaciones = JSON.parse(sessionStorage.getItem("habitaciones"));
     const reservas = JSON.parse(sessionStorage.getItem("reservas"));
 
-    // Filtrar habitaciones según las reservas
-    const habitacionesDisponibles = habitaciones.filter((habitacion) => {
-      // Verificar si la habitación tiene capacidad suficiente
-      if (habitacion.Capacidad > numPersonas) {
-        return false;
+    // Verificar cuántas habitaciones están ocupadas por tipo en el rango de fechas
+    const habitacionesOcupadas = reservas.reduce((ocupadas, reserva) => {
+      const reservaInicio = new Date(reserva.FechaEntrada);
+      const reservaFin = new Date(reserva.FechaSalida);
+
+      // Si las fechas se solapan con las fechas solicitadas
+      if (fechaIngreso < reservaFin && fechaSalida > reservaInicio) {
+        const tipo = reserva.Tipo[0];
+        ocupadas[tipo] = (ocupadas[tipo] || 0) + 1;
       }
+      return ocupadas;
+    }, {});
 
-      // Verificar si la habitación está reservada en el rango de fechas
-      const reservasHabitacion = reservas.filter(
-        (reserva) => reserva["Tipo"][0] === habitacion.Tipo
-      );
+    // Filtrar habitaciones disponibles
+    const habitacionesDisponibles = habitaciones
+      .filter((habitacion) => {
+        if (habitacion.Estado !== "Disponible") {
+          console.log(
+            `Descartada: ${habitacion.Tipo} - ${habitacion.Estado}`
+          );
+          return false;
+        }
+        const ocupadas = habitacionesOcupadas[habitacion.Tipo] || 0;
+        const disponibles = habitacion.count_Tipo - ocupadas;
 
-      const enUso = reservasHabitacion.some((reserva) => {
-        const reservaInicio = new Date(reserva.FechaEntrada);
-        const reservaFin = new Date(reserva.FechaSalida);
-        return fechaIngreso < reservaFin && fechaSalida > reservaInicio;
-      });
+        if (disponibles <= 0) {
+          return false;
+        }
 
-      return habitacion.Estado === "Disponible" && !enUso;
-    });
+        // La capacidad debe ser suficiente pero no mayor que numPersonas + 1
+        if (
+          habitacion.Capacidad < numPersonas ||
+          habitacion.Capacidad > numPersonas + 1
+        ) {
+          return false;
+        }
+
+        return true;
+      })
+      .sort((a, b) => a.Capacidad - b.Capacidad);
+
+    // Mostrar habitaciones disponibles
+    console.log("Habitaciones disponibles:", habitacionesDisponibles);
 
     // Mostrar habitaciones filtradas
     mostrarHabitaciones(habitacionesDisponibles);
@@ -126,50 +149,58 @@ $(document).ready(function () {
 function abrirModalReserva(habitacion) {
   document.getElementById("modalTipo").value = habitacion.Tipo;
   document.getElementById("modalCapacidad").value = habitacion.Capacidad;
-  document.getElementById("modalPrecio").value = `S/ ${habitacion.PrecioPorNoche}`;
+  document.getElementById(
+    "modalPrecio"
+  ).value = `S/ ${habitacion.PrecioPorNoche}`;
   document.getElementById("modalFechaIngreso").value = "";
   document.getElementById("modalFechaSalida").value = "";
   document.getElementById("modalPrecioTotal").value = "";
 
   const loggedIn = localStorage.getItem("loggedIn");
 
-  document.getElementById("btnSiguiente1").addEventListener("click", function () {
-    // Siempre empieza desde la primera pantalla
-    document.getElementById("datosHabitacion").style.display = "none";
+  document
+    .getElementById("btnSiguiente1")
+    .addEventListener("click", function () {
+      // Siempre empieza desde la primera pantalla
+      document.getElementById("datosHabitacion").style.display = "none";
 
-    if (loggedIn === "true") {
-      // Si está logueado, salta directo a la tercera pantalla
-      document.getElementById("datosFechas").style.display = "block";
+      if (loggedIn === "true") {
+        // Si está logueado, salta directo a la tercera pantalla
+        document.getElementById("datosFechas").style.display = "block";
+        document.getElementById("datosUsuario").style.display = "none";
+      } else {
+        // Si no está logueado, muestra la segunda pantalla
+        document.getElementById("datosUsuario").style.display = "block";
+        document.getElementById("datosFechas").style.display = "none";
+      }
+    });
+
+  document
+    .getElementById("btnRegresar1")
+    .addEventListener("click", function () {
+      // Regresar a la primera pantalla
+      document.getElementById("datosHabitacion").style.display = "block";
       document.getElementById("datosUsuario").style.display = "none";
-    } else {
-      // Si no está logueado, muestra la segunda pantalla
-      document.getElementById("datosUsuario").style.display = "block";
-      document.getElementById("datosFechas").style.display = "none";
-    }
-  });
+    });
 
-  document.getElementById("btnRegresar1").addEventListener("click", function () {
-    // Regresar a la primera pantalla
-    document.getElementById("datosHabitacion").style.display = "block";
-    document.getElementById("datosUsuario").style.display = "none";
-  });
+  document
+    .getElementById("btnSiguiente2")
+    .addEventListener("click", function () {
+      // Ir a la tercera pantalla desde la segunda
+      document.getElementById("datosUsuario").style.display = "none";
+      document.getElementById("datosFechas").style.display = "block";
+    });
 
-  document.getElementById("btnSiguiente2").addEventListener("click", function () {
-    // Ir a la tercera pantalla desde la segunda
-    document.getElementById("datosUsuario").style.display = "none";
-    document.getElementById("datosFechas").style.display = "block";
-  });
-
-  document.getElementById("btnRegresar2").addEventListener("click", function () {
-    // Regresar a la segunda pantalla desde la tercera
-    if (loggedIn !== "true") {
-      document.getElementById("datosUsuario").style.display = "block";
-    }
-    document.getElementById("datosHabitacion").style.display = "none";
-  });
-
+  document
+    .getElementById("btnRegresar2")
+    .addEventListener("click", function () {
+      // Regresar a la segunda pantalla desde la tercera
+      if (loggedIn !== "true") {
+        document.getElementById("datosUsuario").style.display = "block";
+      }
+      document.getElementById("datosHabitacion").style.display = "none";
+    });
 }
-
 
 document.getElementById("reservaForm").addEventListener("submit", function (e) {
   e.preventDefault();
@@ -202,13 +233,16 @@ document.getElementById("reservaForm").addEventListener("submit", function (e) {
       ...fechas,
     };
 
-    fetch("https://n8n.ejesxyz.com/webhook/1d1ca332-9ddc-45d5-85f4-5b782fbd01ac", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(reserva),
-    })
+    fetch(
+      "https://n8n.ejesxyz.com/webhook/1d1ca332-9ddc-45d5-85f4-5b782fbd01ac",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(reserva),
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
@@ -222,11 +256,13 @@ document.getElementById("reservaForm").addEventListener("submit", function (e) {
         console.error("Error al confirmar reserva:", error);
         alert("No se pudo confirmar la reserva. Intenta nuevamente.");
       });
-  } 
+  }
 });
 
 function cerrarModal() {
-  const modal = bootstrap.Modal.getInstance(document.getElementById("reservaModal"));
+  const modal = bootstrap.Modal.getInstance(
+    document.getElementById("reservaModal")
+  );
   modal.hide();
 }
 
@@ -239,7 +275,8 @@ function calcularPrecioTotal() {
 
   // Validar que todos los campos tengan valores
   if (!fechaIngresoValor || !fechaSalidaValor || !precioPorNocheValor) {
-    document.getElementById("modalPrecioTotal").value = "Completa todos los campos";
+    document.getElementById("modalPrecioTotal").value =
+      "Completa todos los campos";
     return;
   }
 
@@ -248,11 +285,18 @@ function calcularPrecioTotal() {
   const fechaSalida = new Date(fechaSalidaValor);
 
   // Convertir el precio por noche a número
-  const precioPorNoche = parseFloat(precioPorNocheValor.replace("S/ ", "").trim());
+  const precioPorNoche = parseFloat(
+    precioPorNocheValor.replace("S/ ", "").trim()
+  );
 
   // Validar que las fechas y el precio sean válidos
-  if (isNaN(fechaIngreso.getTime()) || isNaN(fechaSalida.getTime()) || isNaN(precioPorNoche)) {
-    document.getElementById("modalPrecioTotal").value = "Selecciona fechas válidas";
+  if (
+    isNaN(fechaIngreso.getTime()) ||
+    isNaN(fechaSalida.getTime()) ||
+    isNaN(precioPorNoche)
+  ) {
+    document.getElementById("modalPrecioTotal").value =
+      "Selecciona fechas válidas";
     return;
   }
 
@@ -264,12 +308,14 @@ function calcularPrecioTotal() {
   if (dias > 0) {
     // Calcular el precio total
     const precioTotal = dias * precioPorNoche;
-    document.getElementById("modalPrecioTotal").value = `S/ ${precioTotal.toFixed(2)}`;
+    document.getElementById(
+      "modalPrecioTotal"
+    ).value = `S/ ${precioTotal.toFixed(2)}`;
   } else {
-    document.getElementById("modalPrecioTotal").value = "Selecciona fechas válidas";
+    document.getElementById("modalPrecioTotal").value =
+      "Selecciona fechas válidas";
   }
 }
-
 
 // Mostrar el formulario de registro
 document.getElementById("btnRegistro").addEventListener("click", function () {
@@ -280,4 +326,3 @@ document.getElementById("btnRegistro").addEventListener("click", function () {
 document.getElementById("btnLogin").addEventListener("click", function () {
   window.location.href = "/login.html"; // Cambia la URL al endpoint de tu login
 });
-
