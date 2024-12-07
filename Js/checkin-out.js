@@ -32,7 +32,8 @@ document.addEventListener("DOMContentLoaded", function () {
         // Rellena el modal con los datos de la habitación
         document.getElementById("HabitacionId").value = habitacion.id;
         document.getElementById("HabitacionTipo").value = habitacion.Tipo;
-        habitacionTipo1=habitacion.Tipo;
+        habitacionTipo1 = habitacion.Tipo; // Asignar a la variable global
+        console.log("Habitación seleccionada (Tipo):", habitacionTipo1);
         document.getElementById("disponibilidad").innerText = habitacion.Estado;
         document.getElementById("HabitacionPrecio").value =
           "S/" + habitacion.PrecioPorNoche;
@@ -50,6 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 function CheckIn() {
   let btnCheckIn = document.getElementById("btnCheckIn");
+  let habitacionTipo1=document.getElementById("HabitacionTipo");
   let datosCliente = document.getElementById("datosCliente");
   let btnSiguiente1 = document.getElementById("btnSiguiente1");
   let modalDNI = document.getElementById("modalDNI");
@@ -66,7 +68,7 @@ function CheckIn() {
   btnSiguiente1.addEventListener("click", async (e) => {
     e.preventDefault();
     const dni = modalDNI.value;
-
+    const habitacionTipo2=habitacionTipo1.value
     if (!dni) {
       alert("Por favor, ingresa un DNI válido.");
       return;
@@ -81,7 +83,7 @@ function CheckIn() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ dni,habitacionTipo1 }),
+          body: JSON.stringify({ dni,habitacionTipo2 }),
         }
       );
 
